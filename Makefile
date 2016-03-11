@@ -1,20 +1,10 @@
 default: configs clean
 	cd buildroot && make
 
-check-usb-bus-addr:
-ifndef USB_BUS
-	$(error USB_BUS is undefined)
-endif
-ifndef USB_ADDR
-	$(error USB_ADDR is undefined)
-endif
-	lsusb -s $(USB_BUS):$(USB_ADDR)
-
-
 configs: submodule clean-configs
-	cp -v customize/post_build.sh buildroot/board/qemu/arm-versatile/
-	chmod +x buildroot/board/qemu/arm-versatile/post_build.sh
-	cp -v customize/permissions.mk buildroot/board/qemu/arm-versatile/
+	cp -v customize/post_build.sh buildroot/board/raspberrypi2
+	chmod +x buildroot/board/raspberrypi2/post_build.sh
+	cp -v customize/permissions.mk buildroot/board/raspberrypi2/
 	cd buildroot && make raspberrypi2_defconfig
 
 submodule:
