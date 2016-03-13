@@ -1,5 +1,6 @@
 default: configs clean
 	cd buildroot && make
+	cp -rv ./buildroot/output/images .
 
 configs: submodule clean-configs
 	cp -v hughmp3_defconfig buildroot/configs/
