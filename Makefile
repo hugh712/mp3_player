@@ -1,14 +1,15 @@
 default: configs clean
-	cd buildroot && make
+	cd buildroot  && make
 	cp -rv ./buildroot/output/images .
 
 configs: submodule clean-configs
 	cp -v hughmp3_defconfig buildroot/configs/
 	cp -v customize/post_build.sh buildroot/board/raspberrypi2/
+	cp -rv customize/overlayfs buildroot/board/raspberrypi2/
 	cp -v busybox_config buildroot/package/busybox/mrdobox.config
 	chmod +x buildroot/board/raspberrypi2/post_build.sh
 	cp -v customize/permissions.mk buildroot/board/raspberrypi2/
-	cd buildroot && make raspberrypi2_defconfig
+	cd buildroot && make hughmp3_defconfig
 
 submodule:
 	git submodule init && git submodule update
