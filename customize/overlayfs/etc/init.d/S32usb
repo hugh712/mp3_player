@@ -9,6 +9,7 @@ case "$1" in
         echo "Loading USB kernel modules..."
         modprobe usb_storage
         modprobe ohci-pci
+	modprobe snd_bcm2835
         echo "Available devices: "; lsusb
         ;;
   *)
