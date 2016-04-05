@@ -53,3 +53,6 @@ BR2_TARGET_ROOTFS_EXT2_4=y
 BR2_PACKAGE_HOST_MKE2IMG=y
 BR2_ROOTFS_POST_IMAGE_SCRIPT="board/raspberrypi2/post-image.sh"
 
+#wiringpi library
+BR2_PACKAGE_WIRINGPI=y
+
