@@ -9,11 +9,14 @@ configs: submodule clean-configs
 	cp -v busybox_config buildroot/package/busybox/mrdobox.config
 	chmod +x buildroot/board/raspberrypi2/post_build.sh
 	cp -v customize/permissions.mk buildroot/board/raspberrypi2/
+	sed -i '/menu\ "O/ a   source\ "package\/wiringpi\/Config\.in"' buildroot/package/Config.in
+	cp customize/package/mpg123 buildroot/package/
+	cp customize/package/wiringPi buildroot/package
 	cd buildroot && make hughmp3_defconfig
 
 submodule:
 	git submodule init && git submodule update
-
+	
 
 clean:
 	rm -rf ./images
