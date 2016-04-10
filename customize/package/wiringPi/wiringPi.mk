@@ -16,12 +16,19 @@ WIRINGPI_CONF_OPTS = --disable-unittests
 
 
 define WIRINGPI_BUILD_CMDS
-	sh $(@D)/build
+	cd $(@D)/wiringPi; $(MAKE)
 endef
 
-#define WIRINGPI_INSTALL_TARGET_CMDS
-#	$(INSTALL) -m 0755 -D $(@D)/eeprog $(TARGET_DIR)/usr/bin/eeprog
-#endef
+define WIRINGPI_INSTALL_TARGET_CMDS
+	$(INSTALL) -m 0755 -D $(@D)/wiringPi/*.h $(TARGET_DIR)/usr/include
+	$(INSTALL) -m 0755 -D $(@D)/wiringPi/libwiringPi.so.2.32          $(TARGET_DIR)/lib
+	ln -sf $(TARGET_DIR)/lib/libwiringPi.so.2.32 $(TARGET_DIR)/lib/libwiringPi.so	
+endef
 
+define WIRINGPI_INSTALL_STAGING_CMDS
+	$(INSTALL) -m 0755 -D $(@D)/wiringPi/*.h $(STAGING_DIR)/usr/include
+	$(INSTALL) -m 0755 -D $(@D)/wiringPi/libwiringPi.so.2.32          $(STAGING_DIR)/lib
+	ln -sf $(STAGING_DIR)/lib/libwiringPi.so.2.32 $(STAGING_DIR)/lib/libwiringPi.so	
+endef
 #$(eval $(autotools-package))
 $(eval $(generic-package))
