@@ -1,8 +1,4 @@
-
-
-
 sudo="sudo"
-
 
 default:
 	cd wiringPi;make -j5;

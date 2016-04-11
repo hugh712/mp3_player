@@ -16,7 +16,7 @@ WIRINGPI_CONF_OPTS = --disable-unittests
 
 
 define WIRINGPI_BUILD_CMDS
-	cd $(@D)/wiringPi; $(MAKE)
+	 $(MAKE)
 endef
 
 define WIRINGPI_INSTALL_TARGET_CMDS
