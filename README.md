@@ -16,3 +16,4 @@ collect2: error: ld returned 1 exit status
 
 it meant : compiled with host machine not cross-compiler!! 
 
+3. worked on buildroot/output/build/wiringPi_versiion/wiringPi/Makefile to make it the right version gcc
