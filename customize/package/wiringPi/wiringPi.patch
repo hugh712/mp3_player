@@ -1,16 +1,13 @@
-Index: wiringPi-b0a60c3302973ca1878d149d61f2f612c8f27fac/Makefile
+Index: wiringPi-b0a60c3302973ca1878d149d61f2f612c8f27fac/wiringPi/Makefile
 ===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ wiringPi-b0a60c3302973ca1878d149d61f2f612c8f27fac/Makefile	2016-04-11 21:35:24.071161242 +0800
-@@ -0,0 +1,11 @@
-+sudo="sudo"                                                                                                                                                                                                          
-+
-+default:
-+	  cd wiringPi;make -j5;
-+
-+xinstall:
-+	  cd wiringPi; $(sudo) make install
-+		  
-+xuninstall:
-+	  cd wiringPi; $(sudo) make uninstall
-+
+--- wiringPi-b0a60c3302973ca1878d149d61f2f612c8f27fac/wiringPi/Makefile	2016-02-29 14:57:38.000000000 +0800
++++ wiringPi-b0a60c3302973ca1878d149d61f2f612c8f27fac/wiringPi/Makefile	2016-04-13 21:01:28.006573982 +0800
+@@ -36,7 +36,7 @@
+ 
+ #DEBUG	= -g -O0
+ DEBUG	= -O2
+-CC	= gcc
++CC	= $(HOST_DIR)/usr/bin/arm-buildroot-linux-uclibcgnueabihf-gcc
+ INCLUDE	= -I.
+ DEFS	= -D_GNU_SOURCE
+ CFLAGS	= $(DEBUG) $(DEFS) -Wformat=2 -Wall -Winline $(INCLUDE) -pipe -fPIC
