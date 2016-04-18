@@ -2,4 +2,4 @@
 
 Problem:
 
-1. how to add -lpthread -lwiringPi for LIBS in configure of mpg123
+1. GPIO LCD not work correctly, but if used python package to init it first and run wiringPi, it would work
