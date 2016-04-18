@@ -17,13 +17,6 @@ MPG123_DEPENDENCIES = host-pkgconf wiringPi
 MPG123_CPU = $(if $(BR2_SOFT_FLOAT),generic_nofpu,generic_fpu)
 
 
-define MPG123_CONFIGURE_CMDS                                                                                                               
-	export LIBS="-lpthread -lwiringPi"
-	$(@D)/configure
-endef
-
-
-
 ifeq ($(BR2_aarch64),y)
 MPG123_CPU = aarch64
 endif
