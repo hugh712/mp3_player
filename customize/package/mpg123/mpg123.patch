@@ -1,12 +1,13 @@
-Index: mpg123-1.23.3/src/mpg123.c
+Index: dl/mpg123-1.23.3/src/mpg123.c
 ===================================================================
---- mpg123-1.23.3.orig/src/mpg123.c	2016-03-23 06:09:45.000000000 +0800
-+++ mpg123-1.23.3/src/mpg123.c	2016-04-10 20:27:02.261413486 +0800
-@@ -44,6 +44,28 @@
+--- dl.orig/mpg123-1.23.3/src/mpg123.c
++++ dl/mpg123-1.23.3/src/mpg123.c
+@@ -44,6 +44,30 @@
  
  #include "debug.h"
  
-+//for lcd module --start
++
++//wiringPi declare start~~
 +#include <stdio.h>
 +#include <stdlib.h>
 +#include <wiringPi.h>
@@ -18,33 +19,43 @@ Index: mpg123-1.23.3/src/mpg123.c
 +#define LCD_D6 5
 +#define LCD_D7 11
 +
-+void lcd_init();
-+void lcd_text(char *s);
-+void SetChrMode();
-+void SetCmdMode();
++void pulseEnable();
 +void lcd_byte(char bits);
-+void pulseEnable ();
-+//for lcd module --end
++void SetCmdMode();
++void SetChrMode();
++void lcd_text(char *s);
++void lcd_init();
 +
++
++//wiringPi declare end~~
 +
 +
  static void usage(int err);
  static void want_usage(char* arg);
  static void long_usage(int err);
-@@ -1058,6 +1080,12 @@
- 	    warning("The parameter -g is deprecated and may be removed in the future.");
- 	}
+@@ -1014,6 +1038,12 @@ int main(int sys_argc, char ** sys_argv)
+ 	mpg123_getpar(mp, MPG123_RESYNC_LIMIT, &param.resync_limit, NULL);
+ 	mpg123_getpar(mp, MPG123_PREFRAMES, &param.preframes, NULL);
  
-+ //init lcd gpio module
++	//init GPIO
 +  lcd_init();
-+  SetChrMode();
++	SetChrMode()
 +
 +
 +
- 	if (loptind >= argc && !param.listname && !param.remote) usage(1);
- 	/* Init audio as early as possible.
- 	   If there is the buffer process to be spawned, it shouldn't carry the mpg123_handle with it. */
-@@ -1642,3 +1670,67 @@
+ #ifdef OS2
+         _wildcard(&argc,&argv);
+ #endif
+@@ -1315,7 +1345,7 @@ int main(int sys_argc, char ** sys_argv)
+ 		if(param.term_ctrl) term_hint();
+ #endif
+ 
+-
++			lcd_text(filename);
+ 			fprintf(stderr, "Playing MPEG stream %lu of %lu: %s ...\n", (unsigned long)pl.pos, (unsigned long)pl.fill, filename);
+ 			if(htd.icy_name.fill) fprintf(stderr, "ICY-NAME: %s\n", htd.icy_name.p);
+ 			if(htd.icy_url.fill)  fprintf(stderr, "ICY-URL: %s\n",  htd.icy_url.p);
+@@ -1642,3 +1672,67 @@ void continue_msg(const char *name)
  {
  		fprintf(aux_out, "\n[%s] track %"SIZE_P" frame %"OFF_P"\n", name,  (size_p)pl.pos, (off_p)framenum);
  }
@@ -53,7 +64,7 @@ Index: mpg123-1.23.3/src/mpg123.c
 +{
 +   digitalWrite (LCD_E, HIGH) ; 
 +   delay(0.5); //  1/2 microsecond pause - enable pulse must be > 450ns
-+   digitalWrite (LCD_E, LOW) ; 
++   digitalWrite (LCD_E, LOW) ;
 +}
 +
 +/*
@@ -62,33 +73,34 @@ Index: mpg123-1.23.3/src/mpg123.c
 +*/
 +void lcd_byte(char bits)
 +{
-+  digitalWrite (LCD_D4,(bits & 0x10)) ;   
-+  digitalWrite (LCD_D5,(bits & 0x20)) ;   
-+  digitalWrite (LCD_D6,(bits & 0x40)) ;   
-+  digitalWrite (LCD_D7,(bits & 0x80)) ;   
++  digitalWrite (LCD_D4,(bits & 0x10)) ;
++  digitalWrite (LCD_D5,(bits & 0x20)) ;
++  digitalWrite (LCD_D6,(bits & 0x40)) ;
++  digitalWrite (LCD_D7,(bits & 0x80)) ;
 +  pulseEnable();
 +
-+  digitalWrite (LCD_D4,(bits & 0x1)) ;   
-+  digitalWrite (LCD_D5,(bits & 0x2)) ;   
-+  digitalWrite (LCD_D6,(bits & 0x4)) ;   
-+  digitalWrite (LCD_D7,(bits & 0x8)) ;   
-+  pulseEnable();             
++  digitalWrite (LCD_D4,(bits & 0x1)) ;
++  digitalWrite (LCD_D5,(bits & 0x2)) ;
++  digitalWrite (LCD_D6,(bits & 0x4)) ;
++  digitalWrite (LCD_D7,(bits & 0x8)) ;
++  pulseEnable();
 +}
 +
-+void SetCmdMode() 
++void SetCmdMode()
 +{
 +  digitalWrite (LCD_RS, 0); // set for commands
 +}
 +
-+void SetChrMode() 
++void SetChrMode()
 +{
 +  digitalWrite (LCD_RS, 1); // set for characters
 +}
++
 +void lcd_text(char *s)
 +{
-+  while(*s) 
++  while(*s)
 +   lcd_byte(*s++);
-+}
++ }
 +
 +void lcd_init()
 +{
@@ -100,15 +112,14 @@ Index: mpg123-1.23.3/src/mpg123.c
 +   pinMode (LCD_D5, OUTPUT);
 +   pinMode (LCD_D6, OUTPUT);
 +   pinMode (LCD_D7, OUTPUT);
-+   
++
 +   // initialise LCD
 +   SetCmdMode(); // set for commands
-+   lcd_byte(0x33); // full init 
++   lcd_byte(0x33); // full init
 +   lcd_byte(0x32); // 4 bit mode
 +   lcd_byte(0x28); // 2 line mode
 +   lcd_byte(0x0C); // display on, cursor off, blink off
 +   lcd_byte(0x01);  // clear screen
 +   delay(3);        // clear screen is slow!
 +}
-+
 +
