@@ -1,7 +1,7 @@
-Index: dl/mpg123-1.23.3/src/mpg123.c
+Index: mpg123-1.23.3/src/mpg123.c
 ===================================================================
 --- dl.orig/mpg123-1.23.3/src/mpg123.c
-+++ dl/mpg123-1.23.3/src/mpg123.c
++++ mpg123-1.23.3/src/mpg123.c
 @@ -44,6 +44,30 @@
  
  #include "debug.h"
@@ -39,7 +39,7 @@ Index: dl/mpg123-1.23.3/src/mpg123.c
  
 +	//init GPIO
 +  lcd_init();
-+	SetChrMode()
++	SetChrMode();
 +
 +
 +
