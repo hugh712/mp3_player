@@ -22,16 +22,16 @@ if there is someone need Eng. version, just let me know.
 
 only thing you have to do is:
 
- cd mp3\_player
+''' cd mp3\_player
  
- make
+ make'''
 
 
 ##Image to SDCard
 
 The result is a image file, assume your sdcard path is "/dev/sdd", only thing you have to do is:
 
- sudo dd if=/dev/sdcard.img of=/dev/sdd
+ '''sudo dd if=/dev/sdcard.img of=/dev/sdd'''
 
 ## Power On
 
