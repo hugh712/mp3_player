@@ -16,7 +16,7 @@ master
 
 ##Detail
 
-I'm writing all the detail about this mp3 in my blog and gitbook,
+I writed all the detail about this mp3 in my blog and gitbook,
 https://www.gitbook.com/book/hugh712/raspberry\_mp3/details
 
 only chinese version,if there is someone need Eng. version, just let me know.
@@ -25,17 +25,17 @@ only chinese version,if there is someone need Eng. version, just let me know.
 
 only thing you have to do is:
 
-''' cd mp3\_player
- 
- make'''
-
+```
+ cd mp3\_player 
+ make
+```
 
 ##Image to SDCard
 
 The result is a image file, assume your sdcard path is "/dev/sdd", only thing you have to do is:
-
- '''sudo dd if=/image/sdcard.img of=/dev/sdd'''
-
+```
+ sudo dd if=/image/sdcard.img of=/dev/sdd
+```
 ## Power On
 
 When you power on your pi2 with a speaker coneected on it,
